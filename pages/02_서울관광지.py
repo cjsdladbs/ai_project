@@ -2,15 +2,15 @@ import streamlit as st
 import folium
 from streamlit_folium import st_folium
 
-# 1. 킹왕짱 화려한 페이지 레이아웃 세팅
+# 1. 페이지 레이아웃 세팅
 st.set_page_config(page_title="🎨 외국인 PICK 서울 핫플 TOP 10", page_icon="🗺️", layout="centered")
 
 st.title("🗺️ 외국인 취향 저격! 서울 관광지 TOP 10 치트키 🗺️")
-st.write("안녕? 친구들! 서울에 놀러 온 외국인 친구에게 어디를 소개해줄지 고민 완전 끝! ✌️ "
-         "지도의 **노란색 마커** 위에 마우스를 올리면 가장 가까운 지하철역이 툴팁으로 짜잔 나타나! "
-         "지도 아래에 있는 꿀잼 놀거리 가이드까지 싹 다 정리해뒀으니 많관부~! 🔥")
+st.write("안녕? 친구들! 관광지 마커를 더 큼직하고 강렬한 **빨간색**으로 체인지했어! 🔴 "
+         "지도의 빨간 마커 위에 마우스를 올리면 가장 가까운 지하철역이 툴팁으로 짜잔 나타나! "
+         "하단의 꿀잼 가이드까지 야무지게 활용해 봐~! 🔥")
 
-# 2. 서울 주요 관광지 TOP 10 데이터베이스 (위도, 경도, 지하철역, 놀거리)
+# 2. 서울 주요 관광지 TOP 10 데이터베이스
 seoul_spots = [
     {"name": "경복궁 🏯", "lat": 37.5796, "lng": 126.9770, "subway": "경복궁역 (3호선)", "play": "한복 폼 미치게 빌려 입고 조선시대 공주/왕자 빙의해서 인생샷 건지기! 📸"},
     {"name": "N서울타워 🗼", "lat": 37.5512, "lng": 126.9882, "subway": "명동역 (4호선)", "play": "남산 케이블카 타고 올라가서 사랑의 자물쇠 걸고 서울 시내 야경 정주행하기! ✨"},
@@ -24,39 +24,38 @@ seoul_spots = [
     {"name": "광장시장 🥞", "lat": 37.5701, "lng": 127.0010, "subway": "종로5가역 (1호선)", "play": "넷플릭스에 나온 칼국수, 두툼한 녹두빈대떡, 육회까지 배 터질 때까지 먹방! 😋"}
 ]
 
-# 3. 폴리움 지도 생성 (서울 중심부 좌표로 세팅)
+# 3. 폴리움 지도 생성
 m = folium.Map(location=[37.555, 126.992], zoom_start=12)
 
-# 4. 지도 위에 "완벽한 노란색" 커스텀 마커 및 마우스 오버(Tooltip) 설정
+# 4. 지도 위에 "더 크고 선명한 빨간색" 커스텀 마커 설정
 for spot in seoul_spots:
-    # 마우스를 마커 위에 올렸을 때 뜰 텍스트 
     tooltip_text = f"🚇 가장 가까운 역: {spot['subway']}"
     
-    # 순수 옐로우 컬러를 구현하기 위해 HTML 아이콘 플러그인 사용 (folium 기본 제공 색상 한계 돌파!)
+    # 크기를 기존보다 키우고(22px), 테두리와 색상을 핫레드로 지정!
     icon_html = """
     <div style="
-        background-color: #FFDE4D; 
-        width: 14px; 
-        height: 14px; 
+        background-color: #FF0032; 
+        width: 22px; 
+        height: 22px; 
         border-radius: 50%; 
-        border: 2px solid #333333;
-        box-shadow: 0px 0px 5px #888888;">
+        border: 3px solid #FFFFFF;
+        box-shadow: 0px 0px 8px rgba(0,0,0,0.5);">
     </div>
     """
     
     folium.Marker(
         location=[spot['lat'], spot['lng']],
-        popup=spot['name'], # 클릭하면 이름이 나옴!
-        tooltip=tooltip_text, # 마우스 올리면 지하철역이 나옴!
-        icon=folium.DivIcon(html=icon_html)
+        popup=spot['name'],
+        tooltip=tooltip_text,
+        icon=folium.DivIcon(html=icon_html, icon_size=(22, 22)) # 크기 동기화
     ).add_to(m)
 
-# 5. 스트림릿에 지도 렌더링하기
+# 5. 스트림릿에 지도 렌더링
 st_folium(m, width=700, height=500)
 
 st.markdown("---")
 
-# 6. 하단 관광지 상세 정보 및 꿀잼 놀거리 설명 가이드
+# 6. 하단 가이드
 st.subheader("🚀 방구석 서울 핫플 가이드 (지하철역 & 놀거리 팩폭)")
 
 for i, spot in enumerate(seoul_spots, 1):
@@ -64,6 +63,5 @@ for i, spot in enumerate(seoul_spots, 1):
         st.markdown(f"**🚇 가장 가까운 지하철역:** `{spot['subway']}`")
         st.markdown(f"**🎉 가서 뭐하고 놀까?:** {spot['play']}")
 
-# 7. 귀여운 마무리 멘트
 st.markdown("---")
-st.caption("중꺾마 정신으로 서울 투어 가자구~! 친구들에게 배포 링크 공유하면 완전 인싸 확정! 🤙")
+st.caption("빨간색 마커라 시선강탈 제대로지? 깃허브에 덮어쓰기(Push)하고 바로 확인해 봐! 🤙")
