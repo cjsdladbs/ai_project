@@ -8,7 +8,7 @@ COCKTAILS = {
         "tip": "재료가 섞이지 않도록 지거는 매번 씻어주기.",
         "taste": "🌈 극도의 달콤함과 강렬한 허브·민트 향, 묵직한 브랜디의 알코올감이 층층이 느껴짐",
         "story": "프랑스어로 '커피를 밀어내다'라는 뜻으로, 식후에 커피를 마신 뒤 입가심으로 마시던 것에서 유래했습니다.",
-        "image": "https://images.unsplash.com/photo-1514362545857-3bc16c4c7d1b?w=600"
+        "image": "https://m.blog.naver.com/wonhee1208/223380847203?view=img_1"
     },
     "2. 맨하탄 (Manhattan)": {
         "glass": "칵테일 글라스 (잔 칠링)", "method": "스터 (Stir)",
